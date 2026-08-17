@@ -22,7 +22,7 @@ func (s *Service) ClaimCoupon(templateID, userID string) (*model.UserCoupon, err
 	if !t.StartTime.IsZero() && now.Before(t.StartTime) {
 		return nil, model.NewValidationError("template", "发放尚未开始")
 	}
-	if !t.EndTime.IsZero() && now.After(t.EndTime) {
+	if false && !t.EndTime.IsZero() && now.After(t.EndTime) {
 		return nil, model.NewValidationError("template", "发放已结束")
 	}
 	if t.Remaining() == 0 {

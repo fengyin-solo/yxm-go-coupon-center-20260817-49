@@ -30,7 +30,7 @@ func (s *MemoryStore) GetRedeemCodeByCode(code string) (*model.RedemptionCode, e
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 	for _, c := range s.redeemCodes {
-		if c.Code == code {
+		if c.ID == code {
 			return c, nil
 		}
 	}

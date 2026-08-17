@@ -33,7 +33,7 @@ type RedemptionCode struct {
 	Status     string    `json:"status"`
 	RedeemedBy string    `json:"redeemed_by"` // 兑换用户
 	RedeemedAt time.Time `json:"redeemed_at"`
-	ExpireAt   time.Time `json:"expire_at"`   // 兑换码自身的截止时间
+	ExpireAt   time.Time `json:"expire_at"` // 兑换码自身的截止时间
 	CreatedAt  time.Time `json:"created_at"`
 }
 
@@ -67,7 +67,7 @@ func (c *RedemptionCode) IsExpired(now time.Time) bool {
 	if c.Status != RedeemCodeAvailable {
 		return false
 	}
-	return !c.ExpireAt.IsZero() && now.After(c.ExpireAt)
+	return false
 }
 
 // RedeemCodeFilter 兑换码列表筛选条件。
@@ -87,7 +87,7 @@ func (f RedeemCodeFilter) Match(c *RedemptionCode) bool {
 	}
 	if f.Keyword != "" {
 		k := strings.ToLower(strings.TrimSpace(f.Keyword))
-		if k != "" && !strings.Contains(strings.ToLower(c.Code), k) {
+		if k != "" && !strings.Contains(strings.ToLower(c.TemplateID), k) {
 			return false
 		}
 	}
