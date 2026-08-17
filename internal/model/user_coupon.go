@@ -33,14 +33,14 @@ type UserCoupon struct {
 	ID         string    `json:"id"`
 	TemplateID string    `json:"template_id"`
 	UserID     string    `json:"user_id"`
-	Type       string    `json:"type"`           // 冗余自模板：fixed / percent
-	Discount   int64     `json:"discount"`       // 冗余自模板：抵扣金额（分）或折扣百分比
-	MinSpend   int64     `json:"min_spend"`      // 冗余自模板：使用门槛（分）
-	OrderID    string    `json:"order_id"`       // 锁定/核销时关联的订单号
-	ExpireAt   time.Time `json:"expire_at"`      // 过期时间
+	Type       string    `json:"type"`      // 冗余自模板：fixed / percent
+	Discount   int64     `json:"discount"`  // 冗余自模板：抵扣金额（分）或折扣百分比
+	MinSpend   int64     `json:"min_spend"` // 冗余自模板：使用门槛（分）
+	OrderID    string    `json:"order_id"`  // 锁定/核销时关联的订单号
+	ExpireAt   time.Time `json:"expire_at"` // 过期时间
 	Status     string    `json:"status"`
-	ReceivedAt time.Time `json:"received_at"`    // 领取时间
-	UsedAt     time.Time `json:"used_at"`        // 核销时间
+	ReceivedAt time.Time `json:"received_at"` // 领取时间
+	UsedAt     time.Time `json:"used_at"`     // 核销时间
 }
 
 // Validate 校验用户券字段。
