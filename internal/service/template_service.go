@@ -35,6 +35,9 @@ func (s *Service) GetTemplate(id string) (*model.CouponTemplate, error) {
 
 // ListTemplates 分页查询模板列表。
 func (s *Service) ListTemplates(filter model.TemplateFilter, page, size int) ([]*model.CouponTemplate, int, error) {
+	if err := normalizePage(page, size); err != nil {
+		return nil, 0, err
+	}
 	all := s.store.ListTemplates()
 	matched := make([]*model.CouponTemplate, 0, len(all))
 	for _, t := range all {

@@ -79,6 +79,9 @@ func (s *Service) GetUserCoupon(id string) (*model.UserCoupon, error) {
 
 // ListUserCoupons 分页查询用户券列表。
 func (s *Service) ListUserCoupons(filter model.UserCouponFilter, page, size int) ([]*model.UserCoupon, int, error) {
+	if err := normalizePage(page, size); err != nil {
+		return nil, 0, err
+	}
 	all := s.store.ListUserCoupons()
 	matched := make([]*model.UserCoupon, 0, len(all))
 	for _, c := range all {

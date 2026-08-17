@@ -71,6 +71,9 @@ func (s *Service) GetRedeemCode(id string) (*model.RedemptionCode, error) {
 
 // ListRedeemCodes 分页查询兑换码列表。
 func (s *Service) ListRedeemCodes(filter model.RedeemCodeFilter, page, size int) ([]*model.RedemptionCode, int, error) {
+	if err := normalizePage(page, size); err != nil {
+		return nil, 0, err
+	}
 	all := s.store.ListRedeemCodes()
 	matched := make([]*model.RedemptionCode, 0, len(all))
 	for _, c := range all {

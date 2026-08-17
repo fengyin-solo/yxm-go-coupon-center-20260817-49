@@ -37,6 +37,9 @@ func (s *Service) GetRule(id string) (*model.Rule, error) {
 
 // ListRules 分页查询规则列表。
 func (s *Service) ListRules(filter model.RuleFilter, page, size int) ([]*model.Rule, int, error) {
+	if err := normalizePage(page, size); err != nil {
+		return nil, 0, err
+	}
 	all := s.store.ListRules()
 	matched := make([]*model.Rule, 0, len(all))
 	for _, r := range all {
