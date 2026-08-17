@@ -8,14 +8,14 @@ import (
 // UsageRecord 优惠券核销使用记录，核销后不可修改，仅支持查询与统计。
 // 金额字段单位均为人民币「分」。
 type UsageRecord struct {
-	ID           string    `json:"id"`
-	CouponID     string    `json:"coupon_id"`     // 用户券 ID
-	TemplateID   string    `json:"template_id"`   // 模板 ID
-	UserID       string    `json:"user_id"`       // 用户 ID
-	OrderID      string    `json:"order_id"`      // 订单号
-	OrderAmount  int64     `json:"order_amount"`  // 订单金额（分）
-	DiscountAmt  int64     `json:"discount_amt"`  // 实际抵扣金额（分）
-	UsedAt       time.Time `json:"used_at"`       // 核销时间
+	ID          string    `json:"id"`
+	CouponID    string    `json:"coupon_id"`    // 用户券 ID
+	TemplateID  string    `json:"template_id"`  // 模板 ID
+	UserID      string    `json:"user_id"`      // 用户 ID
+	OrderID     string    `json:"order_id"`     // 订单号
+	OrderAmount int64     `json:"order_amount"` // 订单金额（分）
+	DiscountAmt int64     `json:"discount_amt"` // 实际抵扣金额（分）
+	UsedAt      time.Time `json:"used_at"`      // 核销时间
 }
 
 // Validate 校验使用记录字段。
