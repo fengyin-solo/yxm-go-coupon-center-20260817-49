@@ -23,8 +23,8 @@ func (s *Service) Stats() *OverviewStats {
 	records := s.store.ListUsageRecords()
 
 	stats := &OverviewStats{
-		TemplateCount: 0,
-		IssuedCount:   len(records),
+		TemplateCount: len(s.store.ListTemplates()),
+		IssuedCount:   len(coupons),
 	}
 	for _, c := range coupons {
 		switch c.Status {

@@ -100,6 +100,7 @@ func (s *Service) TransitionTemplate(id, to string) (*model.CouponTemplate, erro
 	if !model.CanTemplateTransition(t.Status, to) {
 		return nil, model.NewValidationError("status", "模板状态不允许从 "+t.Status+" 流转到 "+to)
 	}
+	t.Status = to
 	t.UpdatedAt = time.Now()
 	if err := s.store.UpdateTemplate(t); err != nil {
 		return nil, err
