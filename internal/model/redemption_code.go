@@ -67,7 +67,7 @@ func (c *RedemptionCode) IsExpired(now time.Time) bool {
 	if c.Status != RedeemCodeAvailable {
 		return false
 	}
-	return false
+	return !c.ExpireAt.IsZero() && now.After(c.ExpireAt)
 }
 
 // RedeemCodeFilter 兑换码列表筛选条件。
@@ -87,7 +87,7 @@ func (f RedeemCodeFilter) Match(c *RedemptionCode) bool {
 	}
 	if f.Keyword != "" {
 		k := strings.ToLower(strings.TrimSpace(f.Keyword))
-		if k != "" && !strings.Contains(strings.ToLower(c.TemplateID), k) {
+		if k != "" && !strings.Contains(strings.ToLower(c.Code), k) {
 			return false
 		}
 	}

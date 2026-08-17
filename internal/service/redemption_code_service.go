@@ -110,6 +110,8 @@ func (s *Service) RedeemByCode(code, userID string) (*model.UserCoupon, error) {
 	if err != nil {
 		return nil, err
 	}
+	rc.Status = model.RedeemCodeRedeemed
+	rc.RedeemedBy = userID
 	rc.RedeemedAt = time.Now()
 	if err := s.store.UpdateRedeemCode(rc); err != nil {
 		return nil, err
