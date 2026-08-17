@@ -23,7 +23,8 @@ func (s *MemoryStore) GetUsageRecord(id string) (*model.UsageRecord, error) {
 	if !ok {
 		return nil, ErrNotFound
 	}
-	return u, nil
+	cp := *u
+	return &cp, nil
 }
 
 func (s *MemoryStore) ListUsageRecords() []*model.UsageRecord {
@@ -31,7 +32,8 @@ func (s *MemoryStore) ListUsageRecords() []*model.UsageRecord {
 	defer s.mu.RUnlock()
 	list := make([]*model.UsageRecord, 0, len(s.usageRecords))
 	for _, u := range s.usageRecords {
-		list = append(list, u)
+		cp := *u
+		list = append(list, &cp)
 	}
 	return list
 }

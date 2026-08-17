@@ -23,7 +23,8 @@ func (s *MemoryStore) GetRedeemCode(id string) (*model.RedemptionCode, error) {
 	if !ok {
 		return nil, ErrNotFound
 	}
-	return c, nil
+	cp := *c
+	return &cp, nil
 }
 
 func (s *MemoryStore) GetRedeemCodeByCode(code string) (*model.RedemptionCode, error) {
@@ -31,7 +32,8 @@ func (s *MemoryStore) GetRedeemCodeByCode(code string) (*model.RedemptionCode, e
 	defer s.mu.RUnlock()
 	for _, c := range s.redeemCodes {
 		if c.Code == code {
-			return c, nil
+			cp := *c
+			return &cp, nil
 		}
 	}
 	return nil, ErrNotFound
@@ -42,7 +44,8 @@ func (s *MemoryStore) ListRedeemCodes() []*model.RedemptionCode {
 	defer s.mu.RUnlock()
 	list := make([]*model.RedemptionCode, 0, len(s.redeemCodes))
 	for _, c := range s.redeemCodes {
-		list = append(list, c)
+		cp := *c
+		list = append(list, &cp)
 	}
 	return list
 }

@@ -23,7 +23,8 @@ func (s *MemoryStore) GetTemplate(id string) (*model.CouponTemplate, error) {
 	if !ok {
 		return nil, ErrNotFound
 	}
-	return t, nil
+	cp := *t
+	return &cp, nil
 }
 
 func (s *MemoryStore) GetTemplateByCode(code string) (*model.CouponTemplate, error) {
@@ -31,7 +32,8 @@ func (s *MemoryStore) GetTemplateByCode(code string) (*model.CouponTemplate, err
 	defer s.mu.RUnlock()
 	for _, t := range s.templates {
 		if t.Code == code {
-			return t, nil
+			cp := *t
+			return &cp, nil
 		}
 	}
 	return nil, ErrNotFound
@@ -42,7 +44,8 @@ func (s *MemoryStore) ListTemplates() []*model.CouponTemplate {
 	defer s.mu.RUnlock()
 	list := make([]*model.CouponTemplate, 0, len(s.templates))
 	for _, t := range s.templates {
-		list = append(list, t)
+		cp := *t
+		list = append(list, &cp)
 	}
 	return list
 }

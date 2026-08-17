@@ -18,7 +18,8 @@ func (s *MemoryStore) GetUserCoupon(id string) (*model.UserCoupon, error) {
 	if !ok {
 		return nil, ErrNotFound
 	}
-	return c, nil
+	cp := *c
+	return &cp, nil
 }
 
 func (s *MemoryStore) ListUserCoupons() []*model.UserCoupon {
@@ -26,7 +27,8 @@ func (s *MemoryStore) ListUserCoupons() []*model.UserCoupon {
 	defer s.mu.RUnlock()
 	list := make([]*model.UserCoupon, 0, len(s.userCoupons))
 	for _, c := range s.userCoupons {
-		list = append(list, c)
+		cp := *c
+		list = append(list, &cp)
 	}
 	return list
 }
