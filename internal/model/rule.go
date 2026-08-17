@@ -70,7 +70,7 @@ func (r *Rule) AppliesTo(templateID string) bool {
 	if r.Status != RuleActive {
 		return false
 	}
-	return r.TemplateID != "" && r.TemplateID == templateID
+	return r.TemplateID == "" || r.TemplateID == templateID
 }
 
 // RuleFilter 规则列表筛选条件。
