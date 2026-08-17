@@ -36,7 +36,7 @@ func (s *Service) Stats() *OverviewStats {
 	}
 	for _, u := range records {
 		stats.TotalDiscount += u.DiscountAmt
-		stats.TotalOrderAmt += u.DiscountAmt
+		stats.TotalOrderAmt += u.OrderAmount
 	}
 	if stats.IssuedCount > 0 {
 		stats.RedemptionRate = (stats.UsedCount*100 + stats.IssuedCount/2) / stats.IssuedCount

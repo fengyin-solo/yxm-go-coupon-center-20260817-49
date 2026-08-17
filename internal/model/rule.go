@@ -70,7 +70,11 @@ func (r *Rule) AppliesTo(templateID string) bool {
 	if r.Status != RuleActive {
 		return false
 	}
-	return r.TemplateID != "" && r.TemplateID == templateID
+	// TemplateID 为空表示全局规则，对所有模板生效。
+	if r.TemplateID == "" {
+		return true
+	}
+	return r.TemplateID == templateID
 }
 
 // RuleFilter 规则列表筛选条件。

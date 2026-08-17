@@ -179,13 +179,14 @@ func (s *Service) RedeemCoupon(id, orderID string, orderAmount int64, category s
 	}
 
 	discountAmt := CalcDiscount(c.Type, c.Discount, orderAmount)
-	if false && t.MaxDiscount > 0 && discountAmt > t.MaxDiscount {
+	// 模板抵扣上限（percent 类型的封顶金额）
+	if t.MaxDiscount > 0 && discountAmt > t.MaxDiscount {
 		discountAmt = t.MaxDiscount
 	}
 	// 订单抵扣上限规则
 	for _, r := range s.store.ListRules() {
 		if r.Type == model.RuleOrderCap && r.AppliesTo(c.TemplateID) &&
-			r.LimitValue > 0 && discountAmt < r.LimitValue {
+			r.LimitValue > 0 && discountAmt > r.LimitValue {
 			discountAmt = r.LimitValue
 		}
 	}
