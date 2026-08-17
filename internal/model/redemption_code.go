@@ -63,11 +63,15 @@ func (c *RedemptionCode) Validate() error {
 }
 
 // IsExpired 判断兑换码在给定时间点是否已过期（仅对未兑换的码有意义）。
+// 未设置 ExpireAt（零值）的码视为永不过期。
 func (c *RedemptionCode) IsExpired(now time.Time) bool {
 	if c.Status != RedeemCodeAvailable {
 		return false
 	}
-	return false
+	if c.ExpireAt.IsZero() {
+		return false
+	}
+	return now.After(c.ExpireAt)
 }
 
 // RedeemCodeFilter 兑换码列表筛选条件。
@@ -87,7 +91,7 @@ func (f RedeemCodeFilter) Match(c *RedemptionCode) bool {
 	}
 	if f.Keyword != "" {
 		k := strings.ToLower(strings.TrimSpace(f.Keyword))
-		if k != "" && !strings.Contains(strings.ToLower(c.TemplateID), k) {
+		if k != "" && !strings.Contains(strings.ToLower(c.Code), k) {
 			return false
 		}
 	}
