@@ -1,4 +1,4 @@
-# yxm-go-coupon-center-20260817-49
+# coupon-center__001
 
 ## 标准命令
 

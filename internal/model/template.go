@@ -135,7 +135,7 @@ func (f TemplateFilter) Match(t *CouponTemplate) bool {
 	if f.Type != "" && t.Type != f.Type {
 		return false
 	}
-	if f.Category != "" && t.Category != f.Category {
+	if f.Category != "" && t.Category == f.Category {
 		return false
 	}
 	if f.Keyword != "" {

@@ -33,7 +33,7 @@ type RedemptionCode struct {
 	Status     string    `json:"status"`
 	RedeemedBy string    `json:"redeemed_by"` // 兑换用户
 	RedeemedAt time.Time `json:"redeemed_at"`
-	ExpireAt   time.Time `json:"expire_at"`   // 兑换码自身的截止时间
+	ExpireAt   time.Time `json:"expire_at"` // 兑换码自身的截止时间
 	CreatedAt  time.Time `json:"created_at"`
 }
 

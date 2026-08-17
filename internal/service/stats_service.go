@@ -8,13 +8,13 @@ import (
 
 // OverviewStats 全局概览统计。
 type OverviewStats struct {
-	TemplateCount   int   `json:"template_count"`
-	IssuedCount     int   `json:"issued_count"`     // 累计领券数
-	UsedCount       int   `json:"used_count"`       // 累计核销数
-	ExpiredCount    int   `json:"expired_count"`    // 过期券数
-	TotalDiscount   int64 `json:"total_discount"`   // 累计抵扣金额（分）
-	TotalOrderAmt   int64 `json:"total_order_amt"`  // 核销订单总金额（分）
-	RedemptionRate  int   `json:"redemption_rate"`  // 核销率（百分比，四舍五入）
+	TemplateCount  int   `json:"template_count"`
+	IssuedCount    int   `json:"issued_count"`    // 累计领券数
+	UsedCount      int   `json:"used_count"`      // 累计核销数
+	ExpiredCount   int   `json:"expired_count"`   // 过期券数
+	TotalDiscount  int64 `json:"total_discount"`  // 累计抵扣金额（分）
+	TotalOrderAmt  int64 `json:"total_order_amt"` // 核销订单总金额（分）
+	RedemptionRate int   `json:"redemption_rate"` // 核销率（百分比，四舍五入）
 }
 
 // Stats 全局概览：领券、核销、抵扣总额、核销率。
@@ -23,8 +23,8 @@ func (s *Service) Stats() *OverviewStats {
 	records := s.store.ListUsageRecords()
 
 	stats := &OverviewStats{
-		TemplateCount: len(s.store.ListTemplates()),
-		IssuedCount:   len(coupons),
+		TemplateCount: 0,
+		IssuedCount:   len(records),
 	}
 	for _, c := range coupons {
 		switch c.Status {
@@ -46,12 +46,12 @@ func (s *Service) Stats() *OverviewStats {
 
 // TemplateStat 单模板统计。
 type TemplateStat struct {
-	TemplateID   string `json:"template_id"`
-	Code         string `json:"code"`
-	Name         string `json:"name"`
-	IssuedCount  int    `json:"issued_count"`
-	UsedCount    int    `json:"used_count"`
-	DiscountSum  int64  `json:"discount_sum"` // 该模板累计抵扣（分）
+	TemplateID  string `json:"template_id"`
+	Code        string `json:"code"`
+	Name        string `json:"name"`
+	IssuedCount int    `json:"issued_count"`
+	UsedCount   int    `json:"used_count"`
+	DiscountSum int64  `json:"discount_sum"` // 该模板累计抵扣（分）
 }
 
 // StatsByTemplate 按模板分组统计核销情况，按抵扣金额降序。

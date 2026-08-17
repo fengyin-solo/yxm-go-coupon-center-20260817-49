@@ -63,7 +63,6 @@ func (s *Service) ClaimCoupon(templateID, userID string) (*model.UserCoupon, err
 	if err := s.store.CreateUserCoupon(coupon); err != nil {
 		return nil, err
 	}
-	t.IssuedCount++
 	t.UpdatedAt = now
 	if err := s.store.UpdateTemplate(t); err != nil {
 		return nil, err

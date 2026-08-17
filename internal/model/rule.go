@@ -7,9 +7,9 @@ import (
 
 // 规则类型。
 const (
-	RuleDailyUserLimit  = "daily_user_limit"  // 单用户每日核销上限，LimitValue 为次数
-	RuleOrderCap        = "order_cap"         // 单笔订单抵扣上限（分），LimitValue 为金额
-	RuleCategoryExclude = "category_exclude"  // 排除品类，TextValue 为品类名
+	RuleDailyUserLimit  = "daily_user_limit" // 单用户每日核销上限，LimitValue 为次数
+	RuleOrderCap        = "order_cap"        // 单笔订单抵扣上限（分），LimitValue 为金额
+	RuleCategoryExclude = "category_exclude" // 排除品类，TextValue 为品类名
 )
 
 // 规则状态。
