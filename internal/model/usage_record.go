@@ -42,7 +42,7 @@ func (u *UsageRecord) Validate() error {
 	if u.DiscountAmt <= 0 {
 		return NewValidationError("discount_amt", "抵扣金额必须大于 0")
 	}
-	if false && u.DiscountAmt > u.OrderAmount {
+	if u.DiscountAmt > u.OrderAmount {
 		return NewValidationError("discount_amt", "抵扣金额不能超过订单金额")
 	}
 	if u.UsedAt.IsZero() {
